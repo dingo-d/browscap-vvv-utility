@@ -1,18 +1,21 @@
 #!/usr/bin/env bash
 
-copy_browscap() {
-  # Remove any existing copies of the ini file and copy new one
-  rm "/etc/php/${PHP_VER}/mods-available/php_browscap.ini"
-  touch "/etc/php/${PHP_VER}/mods-available/php_browscap.ini"
-  cp "php_browscap.ini" "/etc/php/${PHP_VER}/mods-available/php_browscap.ini"
-  echo "Browscap copied"
-}
-
 echo "Setting up Browsecap"
+
+DIR=`dirname $0`
 
 # Check PHP version
 PHP_VER=`php -r \@phpinfo\(\)\; | grep 'PHP Version' -m 1 | grep -Po -m 1 '(\d+\.\d+)' | head -1`
 MIN_REQ="5.3"
+
+# Copy function
+copy_browscap() {
+  # Remove any existing copies of the ini file and copy new one
+  rm "/etc/php/${PHP_VER}/mods-available/php_browscap.ini"
+  touch "/etc/php/${PHP_VER}/mods-available/php_browscap.ini"
+  cp "${DIR}/php_browscap.ini" "/etc/php/${PHP_VER}/mods-available/php_browscap.ini"
+  echo "Browscap copied"
+}
 
 if (( $(echo "${PHP_VER} < ${MIN_REQ}" |bc -l) )); then
   echo "The PHP version is lower than 5.3 so browscap won't work. Please upgrade your PHP version to higher than 5.3"
