@@ -18,7 +18,9 @@ utilities:
   browscap:
     - browscap
 utility-sources:
-  browscap: https://github.com/dingo-d/browscap-vvv-utility
+  browscap:
+    repo: https://github.com/dingo-d/browscap-vvv-utility.git
+    branch: master
 ```
 
 The `core` utilities are there by default, and `browscap` doesn't depend on them.
